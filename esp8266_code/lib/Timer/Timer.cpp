@@ -12,6 +12,7 @@ Timer::Timer()
 
 void Timer::Start(uint32_t delayInMs)
 {
+    finished = false;
     started = true;
     this->delayInMs = delayInMs;
     startTime = millis();

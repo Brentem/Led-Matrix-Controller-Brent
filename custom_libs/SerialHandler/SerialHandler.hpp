@@ -9,7 +9,7 @@
 class SerialHandler
 {
 private:
-    char retreivedMessage[MAX_BUFFER_SIZE-1];
+    char retreivedMessage[MAX_BUFFER_SIZE];
     uint16_t readCount;
     bool messageRetreived;
     bool isReading;

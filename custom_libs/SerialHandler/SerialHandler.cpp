@@ -32,13 +32,14 @@ void SerialHandler::BuildMessage()
         if(isReading)
         {
             retreivedMessage[readCount] = readChar;
+            readCount++;
         }
     }
 
     if(readChar == START_CHAR)
     {
+        Clear();
         isReading = true;
-        messageRetreived = false;
     }
 }
 
