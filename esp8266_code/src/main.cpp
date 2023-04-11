@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
-#include "Led.hpp"
-#include "../custom_libs/SerialHandler/SerialHandler.hpp"
+#include <Led.hpp>
+#include <SerialHandler.hpp>
 
 #define BAUDRATE 9600
 #define LED_PIN D1
