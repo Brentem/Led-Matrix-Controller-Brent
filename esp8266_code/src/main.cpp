@@ -14,6 +14,8 @@ Led led(LED_PIN, SECOND);
 
 void setup() {
   // put your setup code here, to run once:
+  serialHandler.Begin();
+  led.Setup();
   pinMode(BUTTON_1_PIN, INPUT);
   pinMode(BUTTON_2_PIN, INPUT);
 }

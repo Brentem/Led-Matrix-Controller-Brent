@@ -23,7 +23,7 @@ void Timer::Run()
     if(!started)
         return;
     
-    uint32_t currentTime = millis();
+    uint64_t currentTime = millis();
 
     if((currentTime - startTime) >= delayInMs)
     {

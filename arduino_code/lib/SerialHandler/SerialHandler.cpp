@@ -5,6 +5,11 @@
 SerialHandler::SerialHandler(uint32_t baudRate)
 {
     Clear();
+    this->baudRate = baudRate;
+}
+
+void SerialHandler::Begin()
+{
     Serial.begin(baudRate);
 }
 
@@ -61,6 +66,7 @@ void SerialHandler::Clear()
     isReading = false;
     messageRetreived = false;
     readCount = 0;
+    baudRate = 0;
     
     for(uint16_t i = 0; i < MAX_BUFFER_SIZE; i++)
     {

@@ -6,7 +6,10 @@ Led::Led(int pinNumber, uint32_t ledOnTime)
 {
     this->ledOnTime = ledOnTime;
     this->pinNumber = pinNumber;
+}
 
+void Led::Setup()
+{
     timer.Reset();
     pinMode(pinNumber, OUTPUT);
 }

@@ -5,7 +5,7 @@
 class Timer
 {
 private:
-    uint32_t startTime;
+    uint64_t startTime;
     uint32_t delayInMs;
     bool started;
     bool finished;

@@ -13,6 +13,7 @@ private:
 
 public:
     Led(int pinNumber, uint32_t ledOnTime);
+    void Setup();
     void On();
     void Update();
     void Off();

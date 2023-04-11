@@ -40,19 +40,19 @@ void DrawRed()
 
 void setup() {
   // put your setup code here, to run once:
+  serialHandler.Begin();
   matrix.begin();
   DrawBlue();
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
+
   serialHandler.BuildMessage();
 
   if(serialHandler.MessageRetreived())
   {
     char* msg = serialHandler.GetRetreivedMessage();
-
-    Serial.println("Arduino has received Message!");
 
     if(strcmp(msg, "Option1"))
     {
