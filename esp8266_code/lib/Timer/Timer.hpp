@@ -5,14 +5,14 @@
 class Timer
 {
 private:
-    uint64_t startTime;
-    uint32_t delayInMs;
+    int64_t startTime;
+    int32_t delayInMs;
     bool started;
     bool finished;
 
 public:
     Timer();
-    void Start(uint32_t delayInMs);
+    void Start(int32_t delayInMs);
     void Run();
     void Reset();
     bool Finished() const;

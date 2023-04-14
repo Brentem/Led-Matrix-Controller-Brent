@@ -29,8 +29,9 @@ void loop() {
   {
     char* msg = serialHandler.GetRetreivedMessage();
 
-    if(strcmp(msg, "ACK") == 0)
+    if((strcmp(msg, "ACK") == 0) && (!led.IsLedOn()))
     {
+      serialHandler.Clear();
       led.On();
     }
   }

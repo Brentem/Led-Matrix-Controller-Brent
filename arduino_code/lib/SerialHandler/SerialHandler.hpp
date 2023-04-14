@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-#define MAX_BUFFER_SIZE 256
+#define MAX_BUFFER_SIZE 64
 #define START_CHAR '#'
 #define END_CHAR '%'
 

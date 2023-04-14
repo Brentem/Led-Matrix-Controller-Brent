@@ -18,22 +18,22 @@ SerialHandler serialHandler(BAUDRATE);
 
 void DrawBlue()
 {
-  for(uint8_t x=0; x<32; x++) 
+  for(uint8_t x=0; x<4; x++) 
   {
-    for(uint8_t y=0; y<16; y++) 
+    for(uint8_t y=0; y<4; y++) 
     {
-      matrix.drawPixel(x, y, matrix.Color333(0, 0, 7));
+      matrix.drawPixel(x, y, matrix.Color333(0, 0, 3));
     }
   }
 }
 
 void DrawRed()
 {
-  for(uint8_t x=0; x<32; x++) 
+  for(uint8_t x=0; x<4; x++) 
   {
-    for(uint8_t y=0; y<16; y++) 
+    for(uint8_t y=0; y<4; y++) 
     {
-      matrix.drawPixel(x, y, matrix.Color333(7, 0, 0));
+      matrix.drawPixel(x, y, matrix.Color333(3, 0, 0));
     }
   }
 }
@@ -54,16 +54,18 @@ void loop() {
   {
     char* msg = serialHandler.GetRetreivedMessage();
 
-    if(strcmp(msg, "Option1"))
+    if(strcmp(msg, "Option1") == 0)
     {
       DrawBlue();
       serialHandler.SendMessage("ACK");
+      serialHandler.Clear();
     }
 
-    if(strcmp(msg, "Option2"))
+    if(strcmp(msg, "Option2") == 0)
     {
       DrawRed();
       serialHandler.SendMessage("ACK");
+      serialHandler.Clear();
     }
   }
 }

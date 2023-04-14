@@ -10,6 +10,7 @@ private:
     Timer timer;
     uint32_t ledOnTime;
     int pinNumber;
+    bool isLedOn;
 
 public:
     Led(int pinNumber, uint32_t ledOnTime);
@@ -17,4 +18,5 @@ public:
     void On();
     void Update();
     void Off();
+    bool IsLedOn() const;
 };

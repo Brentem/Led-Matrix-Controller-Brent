@@ -10,7 +10,7 @@ Timer::Timer()
     finished = false;
 }
 
-void Timer::Start(uint32_t delayInMs)
+void Timer::Start(int32_t delayInMs)
 {
     finished = false;
     started = true;
@@ -23,7 +23,7 @@ void Timer::Run()
     if(!started)
         return;
     
-    uint64_t currentTime = millis();
+    int64_t currentTime = millis();
 
     if((currentTime - startTime) >= delayInMs)
     {
