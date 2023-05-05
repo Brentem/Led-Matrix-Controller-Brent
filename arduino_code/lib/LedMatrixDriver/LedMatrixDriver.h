@@ -1,7 +1,7 @@
 #ifndef LED_MATRIX_DRIVER_H
 #define LED_MATRIX_DRIVER_H
 
-#define CLOCK_TIME_IN_MICRO 10
+#define CLOCK_TIME_IN_MICRO 1
 
 #include <stdint.h>
 
