@@ -1,7 +1,7 @@
 #ifndef LED_MATRIX_DRIVER_H
 #define LED_MATRIX_DRIVER_H
 
-#define CLOCK_TIME_IN_MICRO 1
+#define CLOCK_TIME_IN_MICRO 10
 
 #include <stdint.h>
 
@@ -28,6 +28,10 @@ class LedMatrixDriver
         bool clkSignal;
         bool start;
         bool dataLoaded;
+        bool latchEnable;
+        bool latchDisable;
+        bool outputEnable;
+        bool outputDisable;
         uint8_t row;
         uint8_t column;
 
@@ -35,7 +39,7 @@ class LedMatrixDriver
         void setDigitalWrite();
 
     public:
-        LedMatrixDriver(PinLayout layout, 
+        LedMatrixDriver(const PinLayout& layout, 
                         void(*pinModePtr)(uint8_t, uint8_t),
                         void(*digitalWritePtr)(uint8_t, uint8_t));
         void Setup();

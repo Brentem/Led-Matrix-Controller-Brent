@@ -2,6 +2,8 @@
 
 #include <Arduino.h> // Only for micros
 
+#include <string.h>
+
 const uint8_t outputMode = 1;
 
 const uint8_t low = 0;
@@ -9,18 +11,24 @@ const uint8_t high = 1;
 
 const uint8_t rowLength = 32;
 
-LedMatrixDriver::LedMatrixDriver(PinLayout layout,
+LedMatrixDriver::LedMatrixDriver(const PinLayout& layout,
                                  void (*pinModePtr)(uint8_t, uint8_t),
                                  void (*digitalWritePtr)(uint8_t, uint8_t))
 {
-    layout = layout;
-    pinModePtr = pinModePtr;
-    digitalWritePtr = digitalWritePtr;
+    this->layout = layout;
+    this->pinModePtr = pinModePtr;
+    this->digitalWritePtr = digitalWritePtr;
     start = true;
     clkSignal = false;
     dataLoaded = false;
+    latchEnable = false;
+    latchDisable = false;
+    outputEnable = false;
+    outputDisable = false;
     row = 0;
     column = 0;
+    time = 0;
+    memset(blueBuffer, 0, sizeof(blueBuffer));
 }
 
 void LedMatrixDriver::Setup()
@@ -64,11 +72,40 @@ void LedMatrixDriver::Loop()
 
     if (clkSignal)
     {
-        digitalWritePtr(layout.clk, high);
+        if(latchEnable)
+        {
+            digitalWritePtr(layout.lat, high);
+            latchDisable = true;
+        }
+        else if (outputEnable)
+        {
+            digitalWritePtr(layout.oe, high);
+            outputDisable = true;
+        }
+        else
+        {
+            digitalWritePtr(layout.clk, high);
+            dataLoaded = false;
+        }
     }
     else
     {
         digitalWritePtr(layout.clk, low);
+
+        if(latchDisable)
+        {
+            latchEnable = false;
+            digitalWritePtr(layout.lat, low);
+            outputEnable = true;
+            latchDisable = false;
+        }
+
+        if(outputDisable)
+        {
+            outputEnable = false;
+            digitalWritePtr(layout.oe, low);
+            outputDisable = false;
+        }
 
         if (!dataLoaded)
         {
@@ -76,13 +113,16 @@ void LedMatrixDriver::Loop()
             data = ((rowLength - 1) - column) >> data;
             digitalWritePtr(layout.b1, (uint8_t)data);
             column++;
+            dataLoaded = true;
         }
     }
 
     if (column == rowLength)
     {
         column = 0;
-        row++;
+        //row++;
+        digitalWritePtr(layout.b1, low);
+        latchEnable = true;
     }
 }
 
