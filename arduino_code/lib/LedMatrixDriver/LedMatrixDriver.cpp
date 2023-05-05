@@ -7,17 +7,20 @@ const uint8_t outputMode = 1;
 const uint8_t low = 0;
 const uint8_t high = 1;
 
+const uint8_t rowLength = 32;
+
 LedMatrixDriver::LedMatrixDriver(PinLayout layout,
-                                void(*pinModePtr)(uint8_t, uint8_t),
-                                void(*digitalWritePtr)(uint8_t, uint8_t))
+                                 void (*pinModePtr)(uint8_t, uint8_t),
+                                 void (*digitalWritePtr)(uint8_t, uint8_t))
 {
-    _layout = layout;
-    _pinModePtr = pinModePtr;
-    _digitalWritePtr = digitalWritePtr;
-    _start = true;
-    _clkSignal = false;
-    _row = 0;
-    _column = 0;
+    layout = layout;
+    pinModePtr = pinModePtr;
+    digitalWritePtr = digitalWritePtr;
+    start = true;
+    clkSignal = false;
+    dataLoaded = false;
+    row = 0;
+    column = 0;
 }
 
 void LedMatrixDriver::Setup()
@@ -28,10 +31,10 @@ void LedMatrixDriver::Setup()
 
 void LedMatrixDriver::WriteBuffer(uint8_t x, uint8_t y, uint8_t val)
 {
-    uint32_t row = _blueBuffer[y];
-    uint32_t valMask = val << (31 - x);
+    uint32_t row = blueBuffer[y];
+    uint32_t valMask = val << ((rowLength - 1) - x);
 
-    if(val > 0)
+    if (val > 0)
     {
         row = row | valMask;
     }
@@ -40,65 +43,77 @@ void LedMatrixDriver::WriteBuffer(uint8_t x, uint8_t y, uint8_t val)
         row = row & ~valMask;
     }
 
-    _blueBuffer[y] = row;
+    blueBuffer[y] = row;
 }
 
 void LedMatrixDriver::Loop()
 {
-    if(_start)
+    if (start)
     {
-        _time = micros();
-        _start = false;
+        time = micros();
+        start = false;
     }
 
     int64_t currentTime = micros();
 
-    if((currentTime - _time) >= CLOCK_TIME_IN_MICRO)
+    if ((currentTime - time) >= CLOCK_TIME_IN_MICRO)
     {
-        _clkSignal = !_clkSignal;
-        _time = micros();
+        clkSignal = !clkSignal;
+        time = micros();
     }
 
-    if(_clkSignal)
+    if (clkSignal)
     {
-        _digitalWritePtr(_layout.clk, high);
+        digitalWritePtr(layout.clk, high);
     }
     else
     {
-        _digitalWritePtr(_layout.clk, low);
+        digitalWritePtr(layout.clk, low);
+
+        if (!dataLoaded)
+        {
+            uint32_t data = blueBuffer[row] & (1 << ((rowLength - 1) - column));
+            data = ((rowLength - 1) - column) >> data;
+            digitalWritePtr(layout.b1, (uint8_t)data);
+            column++;
+        }
     }
 
-
+    if (column == rowLength)
+    {
+        column = 0;
+        row++;
+    }
 }
 
 void LedMatrixDriver::setPinMode()
 {
-    _pinModePtr(_layout.clk, outputMode);
-    _pinModePtr(_layout.oe, outputMode);
-    _pinModePtr(_layout.lat, outputMode);
-    _pinModePtr(_layout.addrA, outputMode);
-    _pinModePtr(_layout.addrB, outputMode);
-    _pinModePtr(_layout.addrC, outputMode);
-    _pinModePtr(_layout.r1, outputMode);
-    _pinModePtr(_layout.g1, outputMode);
-    _pinModePtr(_layout.b1, outputMode);
-    _pinModePtr(_layout.r2, outputMode);
-    _pinModePtr(_layout.g2, outputMode);
-    _pinModePtr(_layout.b2, outputMode);
+    pinModePtr(layout.clk, outputMode);
+    pinModePtr(layout.oe, outputMode);
+    pinModePtr(layout.lat, outputMode);
+    pinModePtr(layout.addrA, outputMode);
+    pinModePtr(layout.addrB, outputMode);
+    pinModePtr(layout.addrC, outputMode);
+    pinModePtr(layout.r1, outputMode);
+    pinModePtr(layout.g1, outputMode);
+    pinModePtr(layout.b1, outputMode);
+    pinModePtr(layout.r2, outputMode);
+    pinModePtr(layout.g2, outputMode);
+    pinModePtr(layout.b2, outputMode);
 }
 
 void LedMatrixDriver::setDigitalWrite()
 {
-    _digitalWritePtr(_layout.clk, low);
-    _digitalWritePtr(_layout.oe, low);
-    _digitalWritePtr(_layout.lat, low);
-    _digitalWritePtr(_layout.addrA, low);
-    _digitalWritePtr(_layout.addrB, low);
-    _digitalWritePtr(_layout.addrC, low);
-    _digitalWritePtr(_layout.r1, low);
-    _digitalWritePtr(_layout.g1, low);
-    _digitalWritePtr(_layout.b1, low);
-    _digitalWritePtr(_layout.r2, low);
-    _digitalWritePtr(_layout.g2, low);
-    _digitalWritePtr(_layout.b2, low);
+    digitalWritePtr(layout.clk, low);
+    digitalWritePtr(layout.oe, low);
+    digitalWritePtr(layout.lat, low);
+    digitalWritePtr(layout.addrA, low);
+    digitalWritePtr(layout.addrB, low);
+    digitalWritePtr(layout.addrC, low);
+    digitalWritePtr(layout.r1, low);
+    digitalWritePtr(layout.g1, low);
+    digitalWritePtr(layout.b1, low);
+    digitalWritePtr(layout.r2, low);
+    digitalWritePtr(layout.g2, low);
+    digitalWritePtr(layout.b2, low);
 }

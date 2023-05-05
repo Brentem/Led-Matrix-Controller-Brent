@@ -20,15 +20,16 @@ struct PinLayout
 class LedMatrixDriver
 {
     private:
-        PinLayout _layout;
-        void(*_pinModePtr)(uint8_t, uint8_t);
-        void(*_digitalWritePtr)(uint8_t, uint8_t);
-        uint32_t _blueBuffer[16];
-        int64_t _time;
-        bool _clkSignal;
-        bool _start;
-        uint8_t _row;
-        uint8_t _column;
+        PinLayout layout;
+        void(*pinModePtr)(uint8_t, uint8_t);
+        void(*digitalWritePtr)(uint8_t, uint8_t);
+        uint32_t blueBuffer[16];
+        int64_t time;
+        bool clkSignal;
+        bool start;
+        bool dataLoaded;
+        uint8_t row;
+        uint8_t column;
 
         void setPinMode();
         void setDigitalWrite();
