@@ -11,6 +11,8 @@ const uint8_t high = 1;
 
 const uint8_t rowLength = 32;
 
+const uint32_t dataMaskValue = 0x00000001;
+
 LedMatrixDriver::LedMatrixDriver(const PinLayout& layout,
                                  void (*pinModePtr)(uint8_t, uint8_t),
                                  void (*digitalWritePtr)(uint8_t, uint8_t))
@@ -44,11 +46,11 @@ void LedMatrixDriver::WriteBuffer(uint8_t x, uint8_t y, uint8_t val)
 
     if (val > 0)
     {
-        row = row | valMask;
+        row |= valMask;
     }
     else
     {
-        row = row & ~valMask;
+        row &= ~valMask;
     }
 
     blueBuffer[y] = row;
@@ -109,8 +111,10 @@ void LedMatrixDriver::Loop()
 
         if (!dataLoaded)
         {
-            uint32_t data = blueBuffer[row] & (1 << ((rowLength - 1) - column));
-            data = ((rowLength - 1) - column) >> data;
+            uint32_t data = blueBuffer[row];
+            uint32_t mask = (dataMaskValue << ((rowLength - 1) - column));
+            data &= mask;
+            data = data >> ((rowLength - 1) - column);
             digitalWritePtr(layout.b1, (uint8_t)data);
             column++;
             dataLoaded = true;
