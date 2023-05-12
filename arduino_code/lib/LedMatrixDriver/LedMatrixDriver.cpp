@@ -42,7 +42,7 @@ void LedMatrixDriver::Setup()
 void LedMatrixDriver::WriteBuffer(uint8_t x, uint8_t y, uint8_t val)
 {
     uint32_t row = blueBuffer[y];
-    uint32_t valMask = val << ((rowLength - 1) - x);
+    uint32_t valMask = (uint32_t)val << ((rowLength - 1) - x);
 
     if (val > 0)
     {
@@ -107,6 +107,7 @@ void LedMatrixDriver::Loop()
             outputEnable = false;
             digitalWritePtr(layout.oe, low);
             outputDisable = false;
+            dataLoaded = false;
         }
 
         if (!dataLoaded)
