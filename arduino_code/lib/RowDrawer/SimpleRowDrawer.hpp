@@ -2,8 +2,8 @@
 
 #include <stdint.h>
 
-#include "PinLayout.h"
-#include "Functions.h"
+#include "../../include/PinLayout.h"
+#include "../../include/Functions.h"
 
 #include <MatrixTimer.hpp>
 

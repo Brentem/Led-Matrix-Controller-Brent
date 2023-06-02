@@ -1,6 +1,6 @@
 #include <Arduino.h>
 
-#include <LedMatrixDriver.h>
+#include <SimpleMatrixDrawer.hpp>
 
 #define BAUDRATE 9600
 
@@ -11,14 +11,15 @@
 #define B   A1
 #define C   A2
 
-PinLayout pinLayout
+IOFunction function
+{
+  .pinModePtr = pinMode,
+  .digitalWritePtr = digitalWrite
+};
+
+RowPinLayout rowLayout
 {
   .clk = CLK,
-  .oe = OE,
-  .lat = LAT,
-  .addrA = A,
-  .addrB = B,
-  .addrC = C,
   .r1 = 2,
   .g1 = 3,
   .b1 = 4,
@@ -27,22 +28,28 @@ PinLayout pinLayout
   .b2 = 7
 };
 
-LedMatrixDriver driver(pinLayout, pinMode, digitalWrite);
+MatrixPinLayout matrixLayout
+{
+  .oe = OE,
+  .lat = LAT,
+  .addrA = A,
+  .addrB = B,
+  .addrC = C
+};
+
+MatrixTimer rowTimer(micros);
+SimpleRowDrawer rowDrawer(rowTimer, rowLayout, function);
+
+MatrixTimer matrixTimer(micros);
+SimpleMatrixDrawer matrixDrawer(rowDrawer, matrixTimer, matrixLayout, function);
 
 void setup() {
   // put your setup code here, to run once:
-  driver.Setup();
-
-  for(uint8_t y = 0; y < 1; y++)
-  {
-    for(uint8_t x = 0; x < 32; x++)
-    {
-      driver.WriteBuffer(x, y, 1);
-    }
-  }
+  matrixDrawer.Setup();
+  matrixDrawer.TempFunction();
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  driver.Loop();
+  matrixDrawer.Draw();
 }

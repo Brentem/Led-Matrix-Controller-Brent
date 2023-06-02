@@ -57,7 +57,7 @@ void SimpleMatrixDrawer::TempFunction()
 
 void SimpleMatrixDrawer::Draw()
 {
-    bool finishedDrawing  = rowDrawer.Draw(drawEnable);
+    bool finishedDrawing = rowDrawer.Draw(drawEnable);
 
     if(finishedDrawing)
     {
@@ -89,6 +89,7 @@ void SimpleMatrixDrawer::Draw()
     }
     else if(signalCounter == STOP_SIGNALS)
     {
+        signalCounter = 0;
         digitalWrite(layout.lat, low);
         digitalWrite(layout.oe, low);
         timer.Reset();
