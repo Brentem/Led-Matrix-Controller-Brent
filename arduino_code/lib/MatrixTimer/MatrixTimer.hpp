@@ -16,4 +16,5 @@ class MatrixTimer
         void Run();
         bool IsStarted() const;
         bool IsFinished() const;
+        void Reset();
 };

@@ -42,3 +42,11 @@ bool MatrixTimer::IsFinished() const
 {
     return finished;
 }
+
+void MatrixTimer::Reset()
+{
+    prevTime = 0;
+    cycleTime = 0;
+    started = false;
+    finished = false; 
+}
