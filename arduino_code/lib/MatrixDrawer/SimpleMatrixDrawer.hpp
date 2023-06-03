@@ -24,6 +24,7 @@ class SimpleMatrixDrawer
         uint8_t signalCounter;
 
         uint8_t address;
+        bool addressSet;
 
         void(*pinMode)(uint8_t, uint8_t);
         void(*digitalWrite)(uint8_t, uint8_t);

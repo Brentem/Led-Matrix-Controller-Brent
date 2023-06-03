@@ -30,6 +30,7 @@ SimpleMatrixDrawer::SimpleMatrixDrawer(SimpleRowDrawer& rowDrawer, MatrixTimer& 
     signalEnable = false;
     signalCounter = 0;
     address = 0;
+    addressSet = false;
 }
 
 void SimpleMatrixDrawer::Setup()
@@ -62,6 +63,12 @@ void SimpleMatrixDrawer::TempFunction()
 
 void SimpleMatrixDrawer::Draw()
 {
+    if(!addressSet)
+    {
+        setAddress();
+        addressSet = true;
+    }
+
     bool finishedDrawing = rowDrawer.Draw(drawEnable);
 
     if(finishedDrawing)
@@ -74,11 +81,6 @@ void SimpleMatrixDrawer::Draw()
         {
             address = 0;
         }
-    }
-
-    if(!signalEnable)
-    {
-       setAddress();
     }
 
     handleTimer();
@@ -133,5 +135,6 @@ void SimpleMatrixDrawer::setOE_Latch()
         timer.Reset();
         signalEnable = false;
         drawEnable = true;
+        addressSet = false;
     }
 }
