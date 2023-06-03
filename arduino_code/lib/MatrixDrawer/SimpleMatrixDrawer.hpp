@@ -23,8 +23,14 @@ class SimpleMatrixDrawer
         bool signalEnable;
         uint8_t signalCounter;
 
+        uint8_t address;
+
         void(*pinMode)(uint8_t, uint8_t);
         void(*digitalWrite)(uint8_t, uint8_t);
+
+        void setAddress();
+        void handleTimer();
+        void setOE_Latch();
 
     public:
         SimpleMatrixDrawer(SimpleRowDrawer& rowDrawer, MatrixTimer& timer,

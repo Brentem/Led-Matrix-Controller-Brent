@@ -7,6 +7,10 @@ const uint8_t high = 1;
 
 const uint32_t CLOCK_TIME_MICRO = 40;
 
+const uint8_t AddrAMask = 0x01;
+const uint8_t AddrBMask = 0x02;
+const uint8_t AddrCMask = 0x04;
+
 SimpleMatrixDrawer::SimpleMatrixDrawer(SimpleRowDrawer& rowDrawer, MatrixTimer& timer,
  MatrixPinLayout layout, IOFunction function)
 : rowDrawer(rowDrawer), timer(timer)
@@ -25,6 +29,7 @@ SimpleMatrixDrawer::SimpleMatrixDrawer(SimpleRowDrawer& rowDrawer, MatrixTimer& 
     drawEnable = false;
     signalEnable = false;
     signalCounter = 0;
+    address = 0;
 }
 
 void SimpleMatrixDrawer::Setup()
@@ -63,8 +68,38 @@ void SimpleMatrixDrawer::Draw()
     {
         drawEnable = false;
         signalEnable = true;
+
+        address++;
+        if(address > 7)
+        {
+            address = 0;
+        }
     }
 
+    if(!signalEnable)
+    {
+       setAddress();
+    }
+
+    handleTimer();
+    setOE_Latch();
+}
+
+void SimpleMatrixDrawer::setAddress()
+{
+    uint8_t addrA = address & AddrAMask;
+    uint8_t addrB = address & AddrBMask;
+    addrB = addrB >> 1;
+    uint8_t addrC = address & AddrCMask;
+    addrC = addrC >> 2;
+
+    digitalWrite(layout.addrA, addrA);
+    digitalWrite(layout.addrB, addrB);
+    digitalWrite(layout.addrC, addrC);
+}
+
+void SimpleMatrixDrawer::handleTimer()
+{
     if(signalEnable && !timer.IsStarted())
     {
         timer.Start(CLOCK_TIME_MICRO);
@@ -76,7 +111,10 @@ void SimpleMatrixDrawer::Draw()
     {
         signalCounter++;
     }
+}
 
+void SimpleMatrixDrawer::setOE_Latch()
+{
     if(signalCounter == LATCH)
     {
         digitalWrite(layout.lat, high);
