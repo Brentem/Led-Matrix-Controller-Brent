@@ -96,6 +96,7 @@ bool SimpleRowDrawer::Draw(bool drawEnable)
         digitalWrite(layout.g2, low);
         digitalWrite(layout.b2, low);
         drawingFinished = true;
+        dataLoaded = false;
     }
 
     return drawingFinished;
