@@ -39,3 +39,9 @@ void myDigitalWrite(uint8_t pin, uint8_t val)
         PORTD |= filteredVal << pin;
     }
 }
+
+void SetColorPins(uint8_t val)
+{
+    PORTD &= ~COLOR_MASK;
+    PORTD |= val << 2;
+}

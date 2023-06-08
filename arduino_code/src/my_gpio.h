@@ -24,6 +24,9 @@
 #define PORTD_MIN 0 //PD0
 #define PORTD_MAX 7 //PD7
 
+#define COLOR_MASK 0xFC
+
 void myDigitalWrite(uint8_t pin, uint8_t val);
+void SetColorPins(uint8_t val);
 
 #endif
