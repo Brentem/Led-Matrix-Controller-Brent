@@ -2,6 +2,11 @@
 
 #include <SimpleMatrixDrawer.hpp>
 
+extern "C"
+{
+  #include "my_gpio.h"
+}
+
 #define BAUDRATE 9600
 
 #define CLK  8
@@ -14,7 +19,7 @@
 IOFunction function
 {
   .pinModePtr = pinMode,
-  .digitalWritePtr = digitalWrite
+  .digitalWritePtr = myDigitalWrite
 };
 
 RowPinLayout rowLayout
