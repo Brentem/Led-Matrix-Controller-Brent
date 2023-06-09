@@ -112,6 +112,7 @@ void SimpleRowDrawer::loadData()
         drawPixel(layout.r2, redRows[1]);
         drawPixel(layout.g2, greenRows[1]);
         drawPixel(layout.b2, blueRows[1]);
+        // drawPixels();
 
         column++;
         dataLoaded = true;
@@ -125,6 +126,29 @@ void SimpleRowDrawer::drawPixel(uint8_t pin, uint32_t row)
     data &= mask;
     data = data >> ((rowLength - 1) - column);
     digitalWrite(pin, (uint8_t)data);
+}
+
+void SimpleRowDrawer::drawPixels()
+{
+    uint32_t mask = (dataMaskValue << ((rowLength - 1) - column));
+
+    uint8_t r1 = (uint8_t)((redRows[0] & mask) >> ((rowLength - 1) - column));
+    uint8_t g1 = (uint8_t)((greenRows[0] & mask) >> ((rowLength - 1) - column));
+    uint8_t b1 = (uint8_t)((blueRows[0] & mask) >> ((rowLength - 1) - column));
+
+    uint8_t r2 = (uint8_t)((redRows[1] & mask) >> ((rowLength - 1) - column));
+    uint8_t g2 = (uint8_t)((greenRows[1] & mask) >> ((rowLength - 1) - column));
+    uint8_t b2 = (uint8_t)((blueRows[1] & mask) >> ((rowLength - 1) - column));
+
+    uint8_t rgb = r1;
+    rgb |= g1 << 1;
+    rgb |= b1 << 2;
+
+    rgb |= r2 << 3;
+    rgb |= g2 << 4;
+    rgb |= b2 << 5;
+
+    setColorPins(rgb);
 }
 
 void SimpleRowDrawer::toggleClock()

@@ -19,7 +19,8 @@ extern "C"
 IOFunction function
 {
   .pinModePtr = pinMode,
-  .digitalWritePtr = myDigitalWrite
+  .digitalWritePtr = myDigitalWrite,
+  .setColorPins = SetColorPins
 };
 
 RowPinLayout rowLayout

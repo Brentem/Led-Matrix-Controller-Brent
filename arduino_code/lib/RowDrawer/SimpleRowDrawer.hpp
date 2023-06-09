@@ -19,12 +19,14 @@ class SimpleRowDrawer
         RowPinLayout layout;
         void(*pinMode)(uint8_t, uint8_t);
         void(*digitalWrite)(uint8_t, uint8_t);
+        void(*setColorPins)(uint8_t);
         bool clockActive;
         bool dataLoaded;
         uint8_t column;
 
         void loadData();
         void drawPixel(uint8_t pin, uint32_t row);
+        void drawPixels();
         void toggleClock();
     public:
         SimpleRowDrawer(MatrixTimer& timer, RowPinLayout layout, IOFunction function);
