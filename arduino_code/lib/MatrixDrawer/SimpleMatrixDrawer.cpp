@@ -84,7 +84,11 @@ void SimpleMatrixDrawer::Draw()
     }
 
     handleTimer();
-    setOE_Latch();
+
+    if(signalEnable)
+    {
+        setOE_Latch();
+    }
 }
 
 void SimpleMatrixDrawer::setAddress()

@@ -106,11 +106,11 @@ void SimpleRowDrawer::loadData()
 {
     if(!dataLoaded)
     {
-        drawPixel(layout.r1, redRows[0]);
-        drawPixel(layout.g1, greenRows[0]);
+        // drawPixel(layout.r1, redRows[0]);
+        // drawPixel(layout.g1, greenRows[0]);
         drawPixel(layout.b1, blueRows[0]);
-        drawPixel(layout.r2, redRows[1]);
-        drawPixel(layout.g2, greenRows[1]);
+        // drawPixel(layout.r2, redRows[1]);
+        // drawPixel(layout.g2, greenRows[1]);
         drawPixel(layout.b2, blueRows[1]);
         // drawPixels();
 
@@ -121,11 +121,12 @@ void SimpleRowDrawer::loadData()
 
 void SimpleRowDrawer::drawPixel(uint8_t pin, uint32_t row)
 {
-    uint32_t data = row;
-    uint32_t mask = (dataMaskValue << ((rowLength - 1) - column));
-    data &= mask;
-    data = data >> ((rowLength - 1) - column);
-    digitalWrite(pin, (uint8_t)data);
+    // uint32_t data = row;
+    // uint32_t mask = (dataMaskValue << ((rowLength - 1) - column));
+    // data &= mask;
+    // data = data >> ((rowLength - 1) - column);
+    // digitalWrite(pin, (uint8_t)data);
+    digitalWrite(pin, high);
 }
 
 void SimpleRowDrawer::drawPixels()

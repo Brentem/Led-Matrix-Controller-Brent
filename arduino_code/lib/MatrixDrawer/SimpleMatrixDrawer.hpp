@@ -4,9 +4,9 @@
 
 #define BUFFER_COUNT 16
 
-#define LATCH 1
-#define OUTPUT_ENABLE 2
-#define STOP_SIGNALS 3
+#define LATCH 0
+#define OUTPUT_ENABLE 1
+#define STOP_SIGNALS 2
 
 class SimpleMatrixDrawer
 {
