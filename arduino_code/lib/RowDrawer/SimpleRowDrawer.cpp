@@ -97,6 +97,7 @@ bool SimpleRowDrawer::Draw(bool drawEnable)
         digitalWrite(layout.b2, low);
         drawingFinished = true;
         dataLoaded = false;
+        timer.SetTemp();
     }
 
     return drawingFinished;

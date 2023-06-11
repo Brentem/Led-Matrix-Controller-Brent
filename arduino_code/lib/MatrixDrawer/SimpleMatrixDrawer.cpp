@@ -136,7 +136,9 @@ void SimpleMatrixDrawer::setOE_Latch()
         signalCounter = 0;
         digitalWrite(layout.lat, low);
         digitalWrite(layout.oe, low);
-        timer.Reset();
+        // timer.Reset();
+        timer.Stop();
+        timer.SetTemp();
         signalEnable = false;
         drawEnable = true;
         addressSet = false;

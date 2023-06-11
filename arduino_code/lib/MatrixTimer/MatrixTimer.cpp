@@ -4,9 +4,11 @@ MatrixTimer::MatrixTimer(unsigned long(*time)())
 {
     this->time = time;
     prevTime = 0;
+    currentTime = 0;
     cycleTime = 0;
     started = false;
     finished = false;
+    temp = true;
 }
 
 void MatrixTimer::Start(uint32_t cycleTime)
@@ -14,7 +16,13 @@ void MatrixTimer::Start(uint32_t cycleTime)
     finished = false;
     started = true;
     this->cycleTime = cycleTime;
-    prevTime = time();
+    // prevTime = time();
+
+    if(temp)
+    {
+        currentTime = time();
+        prevTime = currentTime;
+    }
 }
 
 void MatrixTimer::Run()
@@ -24,13 +32,27 @@ void MatrixTimer::Run()
         return;
     }
 
-    uint64_t currentTime = time();
+    if(temp)
+    {
+        temp = false;
+    }
+    else
+    {
+        currentTime = time();
+    }
 
     if((currentTime - prevTime) >= cycleTime)
     {
         started = false;
         finished = true;
+        prevTime = currentTime;
     }
+}
+
+void MatrixTimer::Stop()
+{
+    started = false;
+    finished = false;
 }
 
 bool MatrixTimer::IsStarted() const
@@ -49,4 +71,9 @@ void MatrixTimer::Reset()
     cycleTime = 0;
     started = false;
     finished = false; 
+}
+
+void MatrixTimer::SetTemp()
+{
+    temp = true;
 }
