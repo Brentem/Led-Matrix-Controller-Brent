@@ -2,7 +2,9 @@
 
 #include <SimpleRowDrawer.hpp>
 
-#define BUFFER_COUNT 16
+// #define BUFFER_COUNT 16
+#define BUFFER_COUNT 8
+#define ROW_LENGTH 32
 
 #define LATCH 0
 #define OUTPUT_ENABLE 1
@@ -15,9 +17,10 @@ class SimpleMatrixDrawer
         MatrixTimer& timer;
         MatrixPinLayout layout;
 
-        uint32_t redBuffer[BUFFER_COUNT];
-        uint32_t greenBuffer[BUFFER_COUNT];
-        uint32_t blueBuffer[BUFFER_COUNT];
+        // uint32_t redBuffer[BUFFER_COUNT];
+        // uint32_t greenBuffer[BUFFER_COUNT];
+        // uint32_t blueBuffer[BUFFER_COUNT];
+        uint8_t colorBuffer[BUFFER_COUNT][ROW_LENGTH];
 
         bool drawEnable;
         bool signalEnable;

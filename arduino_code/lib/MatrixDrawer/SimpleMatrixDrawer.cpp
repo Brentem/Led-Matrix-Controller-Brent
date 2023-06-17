@@ -19,11 +19,19 @@ SimpleMatrixDrawer::SimpleMatrixDrawer(SimpleRowDrawer& rowDrawer, MatrixTimer& 
     pinMode = function.pinModePtr;
     digitalWrite = function.digitalWritePtr;
 
-    for(int i = 0; i < BUFFER_COUNT; i++)
+    // for(int i = 0; i < BUFFER_COUNT; i++)
+    // {
+    //     redBuffer[i] = 0;
+    //     greenBuffer[i] = 0;
+    //     blueBuffer[i] = 0xFFFFFFFF;
+    // }
+
+    for(int j = 0; j < BUFFER_COUNT; j++)
     {
-        redBuffer[i] = 0;
-        greenBuffer[i] = 0;
-        blueBuffer[i] = 0xFFFFFFFF;
+        for(int i = 0; i < ROW_LENGTH; i++)
+        {
+            colorBuffer[j][i] = 0xFF;
+        }
     }
 
     drawEnable = false;
@@ -52,11 +60,13 @@ void SimpleMatrixDrawer::Setup()
 
 void SimpleMatrixDrawer::TempFunction()
 {
-    uint32_t redArray[2] = {redBuffer[0], redBuffer[1]};
-    uint32_t greenArray[2] = {greenBuffer[0], greenBuffer[1]};
-    uint32_t blueArray[2] = {blueBuffer[0], blueBuffer[1]};
+    // uint32_t redArray[2] = {redBuffer[0], redBuffer[1]};
+    // uint32_t greenArray[2] = {greenBuffer[0], greenBuffer[1]};
+    // uint32_t blueArray[2] = {blueBuffer[0], blueBuffer[1]};
 
-    rowDrawer.SetRows(redArray, greenArray, blueArray);
+    // rowDrawer.SetRows(redArray, greenArray, blueArray);
+
+    rowDrawer.SetRows(colorBuffer[0]);
 
     drawEnable = true;
 }
