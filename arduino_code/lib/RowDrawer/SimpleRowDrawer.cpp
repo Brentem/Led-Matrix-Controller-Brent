@@ -28,6 +28,7 @@ SimpleRowDrawer::SimpleRowDrawer(MatrixTimer& timer, RowPinLayout layout, IOFunc
     this->layout = layout;
     pinMode = function.pinModePtr;
     digitalWrite = function.digitalWritePtr;
+    setColorPins = function.setColorPins;
     clockActive = false;
     dataLoaded = false;
     column = 0;
