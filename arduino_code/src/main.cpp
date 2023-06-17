@@ -43,19 +43,40 @@ MatrixPinLayout matrixLayout
   .addrC = C
 };
 
-MatrixTimer rowTimer(micros);
-SimpleRowDrawer rowDrawer(rowTimer, rowLayout, function);
+ISR(TIMER0_COMPA_vect)
+{
+  PORTB ^= 1;
+}
 
-MatrixTimer matrixTimer(micros);
-SimpleMatrixDrawer matrixDrawer(rowDrawer, matrixTimer, matrixLayout, function);
+// MatrixTimer rowTimer(micros);
+// SimpleRowDrawer rowDrawer(rowTimer, rowLayout, function);
+
+// MatrixTimer matrixTimer(micros);
+// SimpleMatrixDrawer matrixDrawer(rowDrawer, matrixTimer, matrixLayout, function);
 
 void setup() {
   // put your setup code here, to run once:
-  matrixDrawer.Setup();
-  matrixDrawer.TempFunction();
+  pinMode(CLK, OUTPUT);
+  // matrixDrawer.Setup();
+  // matrixDrawer.TempFunction();
+
+  TCCR0A = 0;
+  TCCR0A &= ~(1 << WGM00);
+  TCCR0A |= (1 << WGM01);
+
+  TCCR0B &= ~(1 << CS02);
+  TCCR0B |= (1 << CS01);
+  TCCR0B &= ~(1 << CS00);
+
+  TCNT0 = 0;
+  OCR0A = 80;
+
+  TIMSK0 = (1 << OCIE0A);
+
+  sei();
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  matrixDrawer.Draw();
+  // matrixDrawer.Draw();
 }
