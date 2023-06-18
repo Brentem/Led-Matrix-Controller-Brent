@@ -25,8 +25,16 @@
 #define PORTD_MAX 7 //PD7
 
 #define COLOR_MASK 0xFC
+#define ADDRESS_MASK 0x07
+#define LATCH_MASK 0x06
 
-void myDigitalWrite(uint8_t pin, uint8_t val);
-void SetColorPins(uint8_t val);
+#define PORTB_MASK 0x07
+
+// void myDigitalWrite(uint8_t pin, uint8_t val);
+void inline GPIO_Setup()
+void inline SetColorPins(uint8_t val);
+void inline SetAddressPins(uint8_t val);
+void inline ToggleClock();
+void inline SetLatchPins(uint8_t val)
 
 #endif
