@@ -1,6 +1,7 @@
 #ifndef MY_GPIO_H
 #define MY_GPIO_H
 
+#include <avr/io.h>
 #include <stdint.h>
 
 #define FILTER_MASK 0x01
@@ -31,10 +32,29 @@
 #define PORTB_MASK 0x07
 
 // void myDigitalWrite(uint8_t pin, uint8_t val);
-void inline GPIO_Setup()
-void inline SetColorPins(uint8_t val);
-void inline SetAddressPins(uint8_t val);
-void inline ToggleClock();
-void inline SetLatchPins(uint8_t val)
+void GPIO_Setup();
+
+inline void SetColorPins(uint8_t val)
+{
+    PORTD &= ~COLOR_MASK;
+    PORTD |= val << 2;
+}
+
+inline void SetAddressPins(uint8_t val)
+{
+    PORTC &= ~ADDRESS_MASK;
+    PORTC |= val;
+}
+
+inline void ToggleClock()
+{
+    PORTB ^= 1;
+}
+
+inline void SetLatchPins(uint8_t val)
+{
+    PORTB &= ~LATCH_MASK;
+    PORTB |= val;
+}
 
 #endif

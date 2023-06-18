@@ -1,6 +1,5 @@
 #include "my_gpio.h"
 
-#include <avr/io.h>
 
 // static uint8_t bitMaskArray[BIT_COUNT] =
 // {
@@ -40,32 +39,18 @@
 //     }
 // }
 
-void inline GPIO_Setup()
+void GPIO_Setup()
 {
     DDRB |= PORTB_MASK;
     DDRC |= ADDRESS_MASK;
     DDRD |= COLOR_MASK;
-}
 
-void inline SetColorPins(uint8_t val)
-{
+    PORTB &= ~PORTB_MASK;
+    PORTC &= ~ADDRESS_MASK;
     PORTD &= ~COLOR_MASK;
-    PORTD |= val << 2;
 }
 
-void inline SetAddressPins(uint8_t val)
-{
-    PORTC &= ADDRESS_MASK;
-    PORTC |= val;
-}
-
-void inline ToggleClock()
-{
-    PORTB ^= 1;
-}
-
-void inline SetLatchPins(uint8_t val)
-{
-    PORTB &= LATCH_MASK;
-    PORTB |= val;
-}
+extern inline void  SetColorPins(uint8_t val);
+extern inline void SetAddressPins(uint8_t val);
+extern inline void ToggleClock();
+extern inline void SetLatchPins(uint8_t val);

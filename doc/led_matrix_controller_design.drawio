@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2023-06-18T19:38:07.668Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/106.0.5249.199 Electron/21.4.4 Safari/537.36" etag="bfuY1btkWSzbVVsnQfRc" version="21.2.8" type="device" pages="12">
+<mxfile host="Electron" modified="2023-06-18T19:48:39.336Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/106.0.5249.199 Electron/21.4.4 Safari/537.36" etag="4SllPNOACzJfGCilINFi" version="21.2.8" type="device" pages="12">
   <diagram name="c1" id="KQOO9KMx9PF3rT-34MNZ">
     <mxGraphModel dx="-266" dy="856" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -793,7 +793,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="led_matrix_lib_class_diagram_3" id="5LqTgyegQuLLW9bjqSe_">
-    <mxGraphModel dx="1540" dy="1427" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="516" dy="815" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="Rb5WEBwCawuwsQb2hAJA-0" />
         <mxCell id="Rb5WEBwCawuwsQb2hAJA-1" parent="Rb5WEBwCawuwsQb2hAJA-0" />
@@ -834,7 +834,7 @@
           <mxGeometry y="268" width="160" height="26" as="geometry" />
         </mxCell>
         <mxCell id="yIVSjPJ7XqwzE7jgSLHe-13" value="Static/volatile variables" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="Rb5WEBwCawuwsQb2hAJA-1">
-          <mxGeometry x="880" y="40" width="170" height="156" as="geometry" />
+          <mxGeometry x="880" y="40" width="170" height="130" as="geometry" />
         </mxCell>
         <mxCell id="yIVSjPJ7XqwzE7jgSLHe-14" value="-&amp;nbsp; clkEnable: bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="yIVSjPJ7XqwzE7jgSLHe-13">
           <mxGeometry y="26" width="170" height="26" as="geometry" />
@@ -845,11 +845,8 @@
         <mxCell id="yIVSjPJ7XqwzE7jgSLHe-16" value="- latVal: uint8_t" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="yIVSjPJ7XqwzE7jgSLHe-13">
           <mxGeometry y="78" width="170" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="yIVSjPJ7XqwzE7jgSLHe-19" value="- oeVal: uint8_t" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="yIVSjPJ7XqwzE7jgSLHe-13">
-          <mxGeometry y="104" width="170" height="26" as="geometry" />
-        </mxCell>
         <mxCell id="yIVSjPJ7XqwzE7jgSLHe-20" value="- counter: uint8_t" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="yIVSjPJ7XqwzE7jgSLHe-13">
-          <mxGeometry y="130" width="170" height="26" as="geometry" />
+          <mxGeometry y="104" width="170" height="26" as="geometry" />
         </mxCell>
         <mxCell id="yIVSjPJ7XqwzE7jgSLHe-21" value="" style="endArrow=block;endFill=1;html=1;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=top;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="Rb5WEBwCawuwsQb2hAJA-1" source="yIVSjPJ7XqwzE7jgSLHe-9" target="yIVSjPJ7XqwzE7jgSLHe-16">
           <mxGeometry x="-1" relative="1" as="geometry">
