@@ -25,6 +25,7 @@ class Matrix
         uint8_t address;
         bool addressSet;
         bool dataLoaded;
+        bool columnMax;
     public:
         Matrix();
         void Setup();

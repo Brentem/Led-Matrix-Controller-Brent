@@ -47,6 +47,7 @@ Matrix::Matrix()
     address = 0;
     addressSet = false;
     dataLoaded = false;
+    columnMax = false;
 }
 
 void Matrix::Setup()
@@ -75,16 +76,15 @@ void Matrix::Setup()
 
 void Matrix::Update()
 {
+    if(address > 7)
+    {
+        address = 0;
+    }
+
     if(!addressSet)
     {
         addressSet = true;
         SetAddressPins(address);
-    }
-
-    if(_clkSemaphore)
-    {
-        _clkSemaphore = false;
-        dataLoaded = _clkActive;
     }
 
     if(!dataLoaded)
@@ -94,19 +94,21 @@ void Matrix::Update()
         dataLoaded = true;
     }
 
-    if(column == ROW_LENGTH)
+    if(_clkSemaphore)
     {
-        column = 0;
-        SetColorPins(0);
-        dataLoaded = false;
-        address++;
-        _clkEnable = false;
+        _clkSemaphore = false;
+        dataLoaded = _clkActive;
+
+        if(columnMax && !_clkActive)
+        {
+            column = 0;
+            SetColorPins(0);
+            address++;
+            _clkEnable = false;
+        }
     }
 
-    if(address > 7)
-    {
-        address = 0;
-    }
+    columnMax = (column == ROW_LENGTH);
 
     if(_counter == 3)
     {
